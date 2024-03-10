@@ -16,6 +16,8 @@ import {
   DrawerHeader,
   DrawerBody,
   Input,
+  IconButton,
+  Badge,
 } from "@chakra-ui/react";
 
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
@@ -30,6 +32,9 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import Chatloading from "../Chatloading";
 import Userlistitem from "../Useravatar/Userlistitem";
+import { getsender } from "../../config/Chatlogics";
+//  import NotificationBadge from "react-notification-badge";
+//  import { Effect } from "react-notification-badge";
 
 const SideDrawer = () => {
   const [search, setsearch] = useState("");
@@ -38,10 +43,16 @@ const SideDrawer = () => {
   const [loadingchat, setloadingchat] = useState();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, setselectedchat, chats, setchats } = ChatState();
+  const {
+    user,
+    setselectedchat,
+    chats,
+    setchats,
+    notification,
+    setnotification,
+  } = ChatState();
   const history = useHistory();
   const toast = useToast();
-
   // useEffect(() => {
   //   const userInfo = JSON.parse(localStorage.getItem("userinfo"));
   //   setUser(userInfo);
@@ -117,6 +128,20 @@ const SideDrawer = () => {
     }
   };
 
+  const badgeStyle = {
+    backgroundColor: "#ED4337",
+    display: "flex",
+    color: "white",
+    width: "20px", // Adjust the width and height as needed
+    height: "20px",
+    borderRadius: "50%",
+    fontSize: "12px",
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center", // Optional: to horizontally center the content
+    top: "-4px",
+    right: "-4px",
+  };
   return (
     <>
       <Box
@@ -139,10 +164,39 @@ const SideDrawer = () => {
         </Text>
         <div>
           <Menu>
-            <MenuButton p={1}>
-              <BellIcon fontSize={"2xl"} m={1} />
-            </MenuButton>
-            {/* <MenuList></MenuList> */}
+            {notification.length > 0 ? (
+              <MenuButton
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  marginRight: "20px",
+                }}
+              >
+                <span style={badgeStyle}>{notification.length}</span>
+                <BellIcon fontSize={"2xl"} m={1} />
+              </MenuButton>
+            ) : (
+              <MenuButton>
+                <BellIcon fontSize={"2xl"} m={1} />
+              </MenuButton>
+            )}
+
+            <MenuList pl={2}>
+              {!notification.length && "No notification"}
+              {notification.map((notif) => (
+                <MenuItem
+                  key={notif._id}
+                  onClick={() => {
+                    setselectedchat(notif.chat);
+                    setnotification(notification.filter((n) => n !== notif));
+                  }}
+                >
+                  {notif.chat.isgroupchat
+                    ? `new message in ${notif.chat.chatName}`
+                    : `new message from ${getsender(user, notif.chat.users)}`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -155,7 +209,7 @@ const SideDrawer = () => {
             </MenuButton>
             <MenuList>
               <Profilemodel user={user}>
-                <MenuItem>My Profile</MenuItem> 
+                <MenuItem>My Profile</MenuItem>
               </Profilemodel>
               <MenuDivider />
               <MenuItem onClick={logoutHandler}>Logout</MenuItem>
@@ -188,7 +242,7 @@ const SideDrawer = () => {
                 />
               ))
             )}
-            {/* {loadingchat&& <Spinner ml="auto" display="flex"/>} */}
+            {loadingchat && <Spinner ml="auto" display="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
