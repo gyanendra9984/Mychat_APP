@@ -17,15 +17,19 @@ import {
   DrawerBody,
   Input,
 } from "@chakra-ui/react";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
-import React, { useEffect, useState } from 'react'
-import { ChatState } from '../../context/Chatprovider';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { Spinner } from "@chakra-ui/spinner";
+
+import React, { useState } from "react";
+import { ChatState } from "../../context/Chatprovider";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Profilemodel from "./Profilemodel";
 import { useToast } from "@chakra-ui/react";
 
 import axios from "axios";
+import Chatloading from "../Chatloading";
+import Userlistitem from "../Useravatar/Userlistitem";
 
 const SideDrawer = () => {
   const [search, setsearch] = useState("");
@@ -33,24 +37,24 @@ const SideDrawer = () => {
   const [loading, setloading] = useState(false);
   const [loadingchat, setloadingchat] = useState();
 
-const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, setUser } = ChatState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user, setselectedchat, chats, setchats } = ChatState();
   const history = useHistory();
- const toast = useToast();
+  const toast = useToast();
 
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userinfo"));
-    setUser(userInfo);
-    if (!userInfo) {
-      history.push("/");
-    }
-  }, []); 
+  // useEffect(() => {
+  //   const userInfo = JSON.parse(localStorage.getItem("userinfo"));
+  //   setUser(userInfo);
+  //   if (!userInfo) {
+  //     history.push("/");
+  //   }
+  // }, []);
 
   const logoutHandler = () => {
     localStorage.removeItem("userinfo");
     history.push("/");
-  }
-  const handleSearch = async() => {
+  };
+  const handleSearch = async () => {
     if (!search) {
       toast({
         title: "Please Enter something in search",
@@ -64,24 +68,55 @@ const { isOpen, onOpen, onClose } = useDisclosure();
     try {
       setloading(true);
       const config = {
-        Headers: {
-          Authorization:`Berere ${user.token}`
+        headers: {
+          Authorization: `Bearer ${user.token}`,
         },
-      }
+      };
       const { data } = await axios.get(`/api/user?search=${search}`, config);
       setloading(false);
-      searchresult(data);
+      setsearchresult(data);
     } catch (error) {
       toast({
         title: "error occured!",
-        description:"failed to load the search resulds",
+        description: "failed to load the search results",
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "bottom-left",
       });
     }
-  }
+  };
+
+  const accessChat = async (userid) => {
+    try {
+      setloadingchat(true);
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.post(
+        `/api/chat`,
+        { userId: userid },
+        config
+      );
+      if (!chats.find((c) => c._id === data._id)) setchats([data, ...chats]);
+      setselectedchat(data);
+      setloadingchat(false);
+      onClose();
+    } catch (error) {
+      toast({
+        title: "Error fetching the chat",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  };
+
   return (
     <>
       <Box
@@ -120,7 +155,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
             </MenuButton>
             <MenuList>
               <Profilemodel user={user}>
-                <MenuItem>My Profile</MenuItem>
+                <MenuItem>My Profile</MenuItem> 
               </Profilemodel>
               <MenuDivider />
               <MenuItem onClick={logoutHandler}>Logout</MenuItem>
@@ -142,11 +177,23 @@ const { isOpen, onOpen, onClose } = useDisclosure();
               />
               <Button onClick={handleSearch}>Go</Button>
             </Box>
+            {loading ? (
+              <Chatloading />
+            ) : (
+              searchresult?.map((user) => (
+                <Userlistitem
+                  key={user._id}
+                  user={user}
+                  handleFunction={() => accessChat(user._id)}
+                />
+              ))
+            )}
+            {/* {loadingchat&& <Spinner ml="auto" display="flex"/>} */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
     </>
   );
-}
+};
 
 export default SideDrawer;

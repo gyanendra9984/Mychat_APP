@@ -5,6 +5,8 @@ const connectDB = require("./config/db");
 const colors = require("colors");
 const userRoutes = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
+const messageRoutes = require("./Routes/messsageRoutes");
+
 
 const app = express();
 dotenv.config();
@@ -17,6 +19,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
+
 
 app.use((req, res, next) => {
   const error = new Error(`Not Found-${req.originalUrl}`);
@@ -34,7 +38,29 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.PORT||5000;
-app.listen(port, () => {
+const port = process.env.PORT || 5000;
+
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`.yellow.bold);
 });
+
+const io = require("socket.io")(server, {
+  PingTimeout: 60000,
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("connected to socket.io");
+  socket.on("setup", (userdata) => {
+    socket.join(userdata._id);
+    socket.emit("connected");
+  });
+
+  socket.on("join chat", (room) => {
+    socket.join(room);
+    console.log("user joined room " + room);
+  })
+})
+
