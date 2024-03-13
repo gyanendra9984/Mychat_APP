@@ -10,7 +10,7 @@ const path = require("path");
 
 
 const app = express();
-dotenv.config();
+dotenv.config({ path: path.join(__dirname,"..",".env") });
 connectDB();
 app.use(express.json());
 // Define a route to send the chats array
