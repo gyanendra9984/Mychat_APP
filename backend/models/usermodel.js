@@ -1,18 +1,17 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const usermodel = mongoose.Schema(
-    {
-        name: { type: String, required: true },
-        email: { type: String, required: true,unique:true },
-        password: { type: String, required: true },
-        pic: {
-            type: String,
-            default:"https://stock.adobe.com/in/images/default-avatar-profile-icon-vector-social-media-user-image/346839683"
-        },
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    pic: {
+      type: String,
     },
-    {
-        timestamps: true,
-    }
+  },
+  {
+    timestamps: true,
+  }
 );
 usermodel.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);

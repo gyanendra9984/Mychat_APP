@@ -6,6 +6,7 @@ const colors = require("colors");
 const userRoutes = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
 const messageRoutes = require("./Routes/messsageRoutes");
+const path = require("path");
 
 
 const app = express();
@@ -20,6 +21,13 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+
+// ---------------------------deployment--------------------------------
+
+const __dirname1 = path.resolve();
+
+
+// ---------------------------deployment--------------------------------
 
 
 app.use((req, res, next) => {

@@ -1,5 +1,4 @@
 import React from 'react'
-import ScrollableFeed from "react-scrollable-feed";
 import { islastmessage, issamesender, issamesendermargin, issameuser } from '../config/Chatlogics';
 import { Avatar, Tooltip } from '@chakra-ui/react';
 import { ChatState } from '../context/Chatprovider';
@@ -9,7 +8,7 @@ const Scrollablechat = ({messages}) => {
     const { user } = ChatState();
 
     return (
-      <ScrollableFeed>
+      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         {messages &&
           messages.map((m, i) => (
             <div style={{ display: "flex" }} key={m._id}>
@@ -33,9 +32,7 @@ const Scrollablechat = ({messages}) => {
               <span
                 style={{
                   backgroundColor: `${
-                    m.sender._id === user._id
-                      ? "#BEE3F8"
-                      : "#B9F5D0"
+                    m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
                   }`,
                   borderRadius: "20px",
                   padding: "5px 15px",
@@ -48,7 +45,7 @@ const Scrollablechat = ({messages}) => {
               </span>
             </div>
           ))}
-      </ScrollableFeed>
+      </div>
     );
 
 }
