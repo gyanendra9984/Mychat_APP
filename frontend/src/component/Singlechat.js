@@ -6,8 +6,6 @@ import {
   FormControl,
   IconButton,
   Input,
-  MenuItem,
-  MenuList,
   Spinner,
   Text,
   useToast,

@@ -18,7 +18,7 @@ const Chatpage = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, []);
+  }, [history]);
 
   return (
     <div style={{ width: "100%" }}>

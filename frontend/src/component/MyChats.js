@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { ChatState } from '../context/Chatprovider';
-import { Box, Button, Stack, Text, useToast } from '@chakra-ui/react';
-import axios from 'axios';
-import { AddIcon } from '@chakra-ui/icons';
-import Chatloading from './Chatloading';
-import { getsender } from '../config/Chatlogics';
-import Groupchatmodel from './miscellaneous/Groupchatmodel';
+import React, { useEffect, useState } from "react";
+import { ChatState } from "../context/Chatprovider";
+import { Box, Button, Stack, Text, useToast } from "@chakra-ui/react";
+import axios from "axios";
+import { AddIcon } from "@chakra-ui/icons";
+import Chatloading from "./Chatloading";
+import { getsender } from "../config/Chatlogics";
+import Groupchatmodel from "./miscellaneous/Groupchatmodel";
 
-const MyChats = ({fetchagain}) => {
+const MyChats = ({ fetchagain }) => {
   const [loggeduser, setloggeduser] = useState();
   const { user, selectedchat, setselectedchat, chats, setchats } = ChatState();
-const toast = useToast();
-  const fetchChats=async()=>{
-  try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
-    const { data } = await axios.get("/api/chat", config);
+
+  const toast = useToast();
+  const fetchChats = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get("/api/chat", config);
       setchats(data);
     } catch (error) {
       toast({
@@ -29,13 +30,13 @@ const toast = useToast();
         isClosable: true,
         position: "bottom-left",
       });
-  }
-  }
+    }
+  };
   useEffect(() => {
     setloggeduser(JSON.parse(localStorage.getItem("userinfo")));
     fetchChats();
-  }, [fetchagain])
-  
+  }, [fetchagain]);
+
   return (
     <Box
       display={{ base: selectedchat ? "none" : "flex", md: "flex" }}
@@ -65,7 +66,7 @@ const toast = useToast();
             rightIcon={<AddIcon />}
           >
             New Group Chat
-          </Button> 
+          </Button>
         </Groupchatmodel>
       </Box>
       <Box
@@ -93,8 +94,8 @@ const toast = useToast();
               >
                 <Text>
                   {!chat.isGroupchat
-                    ? getsender(loggeduser, chat.users)
-                    : chat.chatName}
+                      ? loggeduser && getsender(loggeduser, chat.users)
+                      : chat.chatName}
                 </Text>
               </Box>
             ))}
@@ -105,6 +106,6 @@ const toast = useToast();
       </Box>
     </Box>
   );
-}
+};
 
 export default MyChats;
