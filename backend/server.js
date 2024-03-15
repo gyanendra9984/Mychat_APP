@@ -24,11 +24,11 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
 // ---------------------------deployment--------------------------------
-gyani = __dirname
+path1 = __dirname
 if (process.env.NODE_ENV == "production") {
-  app.use(express.static(path.resolve(gyani, "..", "frontend", "build")));
+  app.use(express.static(path.resolve(path1, "..", "frontend", "build")));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(gyani, "..", "frontend", "build", "index.html"));
+    res.sendFile(path.resolve(path1, "..", "frontend", "build", "index.html"));
   });
 } else {
   app.get("/", (req, res) => {
@@ -66,7 +66,7 @@ const server = app.listen(port, () => {
 const io = require("socket.io")(server, {
   PingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://mychat-app-0154.onrender.com",
   },
 });
 
