@@ -1,6 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const chats = require("./data/data");
+// const chats = require("./data/data");
 const connectDB = require("./config/db");
 const colors = require("colors");
 const userRoutes = require("./Routes/userRoutes");
@@ -66,7 +66,7 @@ const server = app.listen(port, () => {
 const io = require("socket.io")(server, {
   PingTimeout: 60000,
   cors: {
-    origin: "https://mychat-app-0154.onrender.com",
+    origin: "http://localhost:3000",
   },
 });
 
