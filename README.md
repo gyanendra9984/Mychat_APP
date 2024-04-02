@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Real-Time Chat and Notification Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a real-time chat and notification web application built using MongoDB, Express.js, React.js, Node.js, and Socket.IO.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Real-time chat functionality allowing users to send and receive messages instantly.
+- Notification system for alerting users about important events or messages.
+- User authentication and authorization to ensure secure access to the application.
+- Responsive design for seamless user experience across devices.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- MongoDB: A NoSQL database used to store user data, chat messages, and notification details.
+- Express.js: A web application framework for Node.js used to build the backend server.
+- React.js: A JavaScript library for building user interfaces used for the frontend.
+- Node.js: A JavaScript runtime environment used to run the backend server.
+- Socket.IO: A library that enables real-time, bidirectional communication between web clients and servers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You can see a live demo of the calculator app here: [https://mychat-app-0154.onrender.com]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Screenshots
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Login Page
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Screenshot 1](/images/login_page.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Sign up Page
 
-## Learn More
+![Screenshot 2](/images/signup_page.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Search User
 
-### Code Splitting
+![Screenshot 1](/images/search_user.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### See your profile
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Screenshot 1](/images/see_your_profile.png)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### See Other's Profile
 
-### Advanced Configuration
+![Screenshot 1](/images/see_other_profile.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+### Create Group Chat
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![Screenshot 1](/images/create_group_chat.png)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Update Group Chat
+
+![Screenshot 1](/images/update_group_chat.png)
+
+
+### Real Time Message and Notification
+
+![Screenshot 1](/images/realtime_message_and_notification.png)
+
