@@ -16,8 +16,6 @@ import {
   DrawerHeader,
   DrawerBody,
   Input,
-  IconButton,
-  Badge,
 } from "@chakra-ui/react";
 
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
@@ -33,8 +31,6 @@ import axios from "axios";
 import Chatloading from "../Chatloading";
 import Userlistitem from "../Useravatar/Userlistitem";
 import { getsender } from "../../config/Chatlogics";
-//  import NotificationBadge from "react-notification-badge";
-//  import { Effect } from "react-notification-badge";
 
 const SideDrawer = () => {
   const [search, setsearch] = useState("");
@@ -151,15 +147,18 @@ const SideDrawer = () => {
         bg="white"
         w="100%"
         p="5px 10px"
-        borderWidth="5px"
+        borderWidth="3px"
+        borderColor={"lightblue"}
       >
         <Tooltip label="Search user in chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
-            <i className="fa-solid fa-magnifying-glass"></i>
-            <Text display={{ base: "none", md: "flex" }}>Searsh User</Text>
+            <i className="fa-solid fa-magnifying-glass" ></i>
+            <Text display={{ base: "none", md: "flex" }} marginLeft={2}  >
+              Search User
+            </Text>
           </Button>
         </Tooltip>
-        <Text fontSize="2xl" fontFamily="Work sans">
+        <Text fontSize="2xl" fontFamily="greate vibes" fontWeight={"bold"}>
           MY_CHAT_APP
         </Text>
         <div>

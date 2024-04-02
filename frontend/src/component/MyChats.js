@@ -10,7 +10,6 @@ import Groupchatmodel from "./miscellaneous/Groupchatmodel";
 const MyChats = ({ fetchagain }) => {
   const [loggeduser, setloggeduser] = useState();
   const { user, selectedchat, setselectedchat, chats, setchats } = ChatState();
-
   const toast = useToast();
   const fetchChats = async () => {
     try {
@@ -62,6 +61,7 @@ const MyChats = ({ fetchagain }) => {
         <Groupchatmodel>
           <Button
             display="flex"
+            backgroundColor={"rgba(56, 178, 172, .4)"}
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
           >
@@ -87,15 +87,15 @@ const MyChats = ({ fetchagain }) => {
                 cursor="pointer"
                 bg={selectedchat === chat ? "#38B2AC" : "#E8E8E8"}
                 color={selectedchat === chat ? "white" : "black"}
-                px={3}
-                py={2}
+                paddingX={3}
+                paddingY={2}
                 borderRadius="lg"
                 key={chat._id}
               >
                 <Text>
                   {!chat.isGroupchat
-                      ? loggeduser && getsender(loggeduser, chat.users)
-                      : chat.chatName}
+                    ? loggeduser && getsender(loggeduser, chat.users)
+                    : chat.chatName}
                 </Text>
               </Box>
             ))}

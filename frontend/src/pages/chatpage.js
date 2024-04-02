@@ -28,7 +28,7 @@ const Chatpage = () => {
         justifyContent={"space-between"}
         width="100%"
         h="91.5vh"
-        p="10px"
+        p="6px"
       >
         {user && (
           <MyChats fetchagain={fetchagain} />

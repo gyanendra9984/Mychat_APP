@@ -36,8 +36,9 @@ const Profilemodel = ({user,children}) => {
             <Image
               borderRadius={"full"}
               boxSize="150px"
-              src={user.pic ? user.pic : profileimage} 
+              src={user.pic ? user.pic : profileimage}
               alt={user.name}
+              style={user.pic ? { border: "1px solid blue" } : {}}
             />
             <Text
               fontSize={{ base: "28px", md: "30px" }}

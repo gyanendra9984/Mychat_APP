@@ -4,7 +4,6 @@ import {
   Button,
   FormControl,
   IconButton,
-  Image,
   Input,
   Modal,
   ModalBody,
@@ -13,7 +12,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -188,6 +186,7 @@ const Updategroupchatmodel = ({ fetchagain, setfetchagain,fetchmessages }) => {
     <>
       <IconButton
         display={{ base: "flex" }}
+        bgColor={"rgba(56, 178, 172, .4)"}
         icon={<EditIcon />}
         onClick={onOpen}
       />
@@ -245,14 +244,13 @@ const Updategroupchatmodel = ({ fetchagain, setfetchagain,fetchmessages }) => {
             {loading ? (
               <div>loading</div>
             ) : (
-              searchresult
-                ?.map((user) => (
-                  <Userlistitem
-                    key={user._id}
-                    user={user}
-                    handleFunction={() => handleadduser(user)}
-                  />
-                ))
+              searchresult?.map((user) => (
+                <Userlistitem
+                  key={user._id}
+                  user={user}
+                  handleFunction={() => handleadduser(user)}
+                />
+              ))
             )}
           </ModalBody>
           <ModalFooter>

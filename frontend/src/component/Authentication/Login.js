@@ -111,8 +111,7 @@ const Login = () => {
       </FormControl>
       <FormControl>
         <Button
-          varient="solid"
-          colorScheme="red"
+          colorScheme="teal"
           width="100%"
           onClick={() => {
             setemail("guest@example.com");

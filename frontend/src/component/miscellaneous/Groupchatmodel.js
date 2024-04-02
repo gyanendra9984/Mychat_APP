@@ -23,7 +23,6 @@ const Groupchatmodel = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [Groupchatname, setGroupchatname] = useState();
   const [selectedusers, setselectedusers] = useState([]);
-  const [search, setsearch] = useState();
   const [searchresult, setsearchresult] = useState();
   const [loading, setloading] = useState(false);
 
@@ -32,7 +31,6 @@ const Groupchatmodel = ({ children }) => {
     
 
     const handlesearch = async (query) => {
-        setsearch(query);
         if (!query) {
             return;
         }
@@ -43,7 +41,7 @@ const Groupchatmodel = ({ children }) => {
                 Authorization: `Bearer ${user.token}`,
               },
             };
-            const { data } = await axios.get(`/api/user?search=${search}`, config);
+            const { data } = await axios.get(`/api/user?search=${query}`, config);
             setloading(false);
             setsearchresult(data);
         } catch (error) {
@@ -119,7 +117,6 @@ const Groupchatmodel = ({ children }) => {
         setselectedusers([...selectedusers, usertoadd]);
     }
   const handledelete = (user) => {
-    console.log(user);
     setselectedusers(selectedusers.filter((sel) => sel._id !== user._id));
   };
   return (

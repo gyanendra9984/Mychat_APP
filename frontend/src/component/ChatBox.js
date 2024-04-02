@@ -15,7 +15,6 @@ const ChatBox = ({fetchagain,setfetchagain}) => {
       w={{ base: "100%", md: "68%" }}
       borderRadius={"lg"}
       borderWidth={"1px"}
-      // borderColor={"orange"}
     >
       <Singlechat fetchagain={fetchagain} setfetchagain={setfetchagain} />
     </Box>

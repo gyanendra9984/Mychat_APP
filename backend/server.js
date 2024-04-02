@@ -1,6 +1,5 @@
 const express = require("express");
 const dotenv = require("dotenv");
-// const chats = require("./data/data");
 const connectDB = require("./config/db");
 const colors = require("colors");
 const userRoutes = require("./Routes/userRoutes");
@@ -10,7 +9,6 @@ const path = require("path");
 
 
 const app = express();
-// dotenv.config({ path: path.join(__dirname,"..",".env") });
 dotenv.config();
 connectDB();
 app.use(express.json());
@@ -69,7 +67,6 @@ const io = require("socket.io")(server, {
     origin: "http://localhost:3000",
   },
 });
-// const io = require("socket.io")(server);
  
 io.on("connection", (socket) => {
   console.log("connected to socket.io");

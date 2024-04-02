@@ -19,9 +19,9 @@ import Scrollablechat from "./Scrollablechat";
 import io from "socket.io-client";
 import Lottie from "lottie-react";
 import animationData from "../animation/typing.json";
+import { IoSend } from "react-icons/io5";
 
-const endpoint =
-  "https://mychat-app-0154.onrender.com";
+const endpoint = "https://mychat-app-0154.onrender.com";
 var socket, selectedchatcompare;
 const Singlechat = ({ fetchagain, setfetchagain }) => {
   const { user, selectedchat, setselectedchat, notification, setnotification } =
@@ -66,7 +66,6 @@ const Singlechat = ({ fetchagain, setfetchagain }) => {
     socket = io(endpoint, {
       transports: ["websocket"],
     });
-    console.log(endpoint);
     socket.emit("setup", user);
     socket.on("connected", () => setsocketconnected(true));
     socket.on("typing", () => setistyping(true));
@@ -94,8 +93,8 @@ const Singlechat = ({ fetchagain, setfetchagain }) => {
     });
   });
 
-  const sendmessage = async (e) => {
-    if (e.key === "Enter" && newmessage) {
+  const sendmessage = async () => {
+    if (newmessage) {
       socket.emit("stop typing", selectedchat._id);
       try {
         const config = {
@@ -161,13 +160,15 @@ const Singlechat = ({ fetchagain, setfetchagain }) => {
             alignItems={"center"}
           >
             <IconButton
-              display={{ base: "flex", md: "none" }}
+              bgColor={"rgba(56, 178, 172, .4)"}
               icon={<ArrowBackIcon />}
               onClick={() => setselectedchat("")}
             />
             {!selectedchat.isGroupchat ? (
               <>
-                {getsender(user, selectedchat.users)}
+                <span style={{ fontFamily: "great vibes" }}>
+                  {getsender(user, selectedchat.users)}
+                </span>
                 <Profilemodel user={getsenderfull(user, selectedchat.users)}>
                   <Avatar
                     size="sm"
@@ -182,7 +183,9 @@ const Singlechat = ({ fetchagain, setfetchagain }) => {
               </>
             ) : (
               <>
-                {selectedchat.chatName.toUpperCase()}
+                <span style={{ fontFamily: "great vibes" }}>
+                  {selectedchat.chatName}
+                </span>
                 <Updategroupchatmodel
                   fetchagain={fetchagain}
                   setfetchagain={setfetchagain}
@@ -214,31 +217,50 @@ const Singlechat = ({ fetchagain, setfetchagain }) => {
               <div
                 display="flex"
                 flexDirection="column"
-                overflowY="scroll"
-                scrollbarWidth="none"
+                // overflowY="scroll"
+                // scrollbarWidth="none"
+                overflowY={"hidden"}
+                style={{ height: "100%" }}
               >
                 <Scrollablechat messages={messages} />
               </div>
             )}
-            <FormControl onKeyDown={sendmessage} isRequired mt={3}>
-              {istyping ? (
-                <div>
-                  <Lottie
-                    animationData={animationData}
-                    loop={true}
-                    autoplay={true}
-                    style={{ marginBottom: 15, marginLeft: 0, width: 70 }}
-                  />
-                </div>
-              ) : (
-                <></>
-              )}
+            {istyping ? (
+              <div>
+                <Lottie
+                  animationData={animationData}
+                  loop={true}
+                  autoplay={true}
+                  style={{ marginBottom: 15, marginLeft: 0, width: 70 }}
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+            <FormControl
+              display={"flex"}
+              alignItems={"center"}
+              mt={3}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") sendmessage();
+              }}
+              isRequired
+            >
               <Input
                 variant={"filled"}
                 bg={"#E0E0E0"}
                 placeholder="Enter your message"
                 onChange={typinghandler}
                 value={newmessage}
+                paddingRight="40px"
+              />
+              <IoSend
+                style={{
+                  marginLeft: "5px",
+                  cursor: "pointer",
+                  fontSize: "30px",
+                }}
+                onClick={sendmessage}
               />
             </FormControl>
           </Box>
