@@ -8,6 +8,7 @@ import { getsender } from "../config/Chatlogics";
 import Groupchatmodel from "./miscellaneous/Groupchatmodel";
 
 const MyChats = ({ fetchagain }) => {
+
   const [loggeduser, setloggeduser] = useState();
   const { user, selectedchat, setselectedchat, chats, setchats } = ChatState();
   const toast = useToast();
@@ -31,6 +32,7 @@ const MyChats = ({ fetchagain }) => {
       });
     }
   };
+  
   useEffect(() => {
     setloggeduser(JSON.parse(localStorage.getItem("userinfo")));
     fetchChats();

@@ -31,10 +31,8 @@ vendor/
 .DS_Store
 Thumbs.db
 
-# Compiled binary addons
 *.bin
 *.build
 *.compiled
 
-# Dependency directories
 node_modules/
