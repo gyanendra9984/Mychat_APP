@@ -45,12 +45,12 @@ You can see a live demo of the calculator app here: [https://mychat-app-0154.onr
 
 ### See your profile
 
-![Screenshot 1](/images/see_your_profile.png)
+![Screenshot 1](/images/your_profile.png)
 
 
 ### See Other's Profile
 
-![Screenshot 1](/images/see_other_profile.png)
+![Screenshot 1](/images/other_profile.png)
 
 
 ### Create Group Chat
