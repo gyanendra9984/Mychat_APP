@@ -12,16 +12,14 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(express.json());
-// Define a route to send the chats array
-// app.get('/', (req, res) => {
-//     res.send("API is running");
-// });
+
 
 app.use('/api/user', userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
 // ---------------------------deployment--------------------------------
+
 path1 = __dirname
 if (process.env.NODE_ENV == "production") {
   app.use(express.static(path.resolve(path1, "..", "frontend", "build")));
